@@ -54,8 +54,8 @@ jobs:
       - name: 📊 Sonar Analysis
         run: >
           mvn -B sonar:sonar 
-          -Dsonar.projectKey=alvaro hidalgo lopez_${{ env.ARTIFACT }}
-          -Dsonar.organization=alvaro hidalgo lopez
+          -Dsonar.projectKey=bq0463_${{ env.ARTIFACT }}
+          -Dsonar.organization=bq0463
           -Dsonar.host.url=https://sonarcloud.io 
           -Dsonar.token=${{ secrets.SONAR_TOKEN }}
         env:
