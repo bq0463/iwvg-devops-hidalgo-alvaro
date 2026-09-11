@@ -10,8 +10,8 @@
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/miw-upm/iwvg-devops?color=informational)
 
 ### Estado del código
-[![DevOps](https://github.com/miw-upm/iwvg-devops/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/miw-upm/iwvg-devops/actions/workflows/continuous-integration.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aiwvg-devops&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=es.upm.miw%3Aiwvg-devops)
+[![DevOps](https://github.com/bq0463/iwvg-devops-hidalgo-alvaro/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/bq0463/iwvg-devops-hidalgo-alvaro/actions/workflows/continuous-integration.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bq0463_iwvg-devops-hidalgo-alvaro&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bq0463_iwvg-devops-hidalgo-alvaro)
 [![Render broken](https://iwvg-devops-latest.onrender.com/version-badge)](https://iwvg-devops-latest.onrender.com/swagger-ui.html)
 
 
@@ -67,10 +67,10 @@ plantilla en la plataforma de Moodle.
 > Recordar cambiar el nombre de la  carpeta.   
 > Recordar editar el pom y cambiar el nombre del artefacto (artifactId).
 > Importarlo desde IntelliJ.   
-> Crear un repositorio en GitHub con el mensaje del primer comit: "Initial. Nombre Apellido"   
- 
+> Crear un repositorio en GitHub con el mensaje del primer comit: "Initial. Nombre Apellido"
+
 #### 2. Preparar la gestión mediante Scrum (**0.5 pto**)
-> Crear un proyecto de gestión en GitHub y prepararlo para la metodología de Scrum (columnas, etiquetas, hitos...). 
+> Crear un proyecto de gestión en GitHub y prepararlo para la metodología de Scrum (columnas, etiquetas, hitos...).
 > Recordar hacerlo `public` para que se pueda visualizar.
 
 #### 3. Preparación del ecosistema (**2.5 ptos**)
@@ -88,7 +88,7 @@ Se crearán las siguientes 3 historias (**Technical**) pero se trabajarán solo 
 Se crearán las siguientes 4 historias (**Feature**).
 * Feature 1ª: :one: añadir el endpoint: **GET /user/{id}**, sin tests. :five: Crear tests del servicio y del endpoint. Los tests deben realizarse sabiendo que hay un seeder.
 * Feature 2ª: :two: mejorar el filtro de busqueda añadiendo una tercera condición: **billable**, significa que el usuario es facturable,
-eso ocurre cuando sus campos firstName, familyName, email, identity, address, city, province, postalCode tienen contenido real. :eight: añadir los tests de servicio y endpoint.
+  eso ocurre cuando sus campos firstName, familyName, email, identity, address, city, province, postalCode tienen contenido real. :eight: añadir los tests de servicio y endpoint.
 * Feature 3ª: :three: añadir el endpoint: **DELETE /user/{id}**, sin tests. :four: añadir los tests de servicio y endpoint.
 * Feature 4ª: :six: añadir el endpoint: **PUT /user/{id}/active**, sin tests. :seven: añadir los tests de servicio y endpoint.
 > :one:, :two:... representa el orden temporal de desarrollo de los features. Cuando un feature se termine se debe incorporar a la rama **develop**. Cuando un feature se inicie, siempre empieza de donde este develop.
@@ -105,6 +105,7 @@ Se crearán las siguientes 2 historias (**Feature**).
 
 #### 7. Bug (**1.5 ptos**)
 > Suponer que la Feature 2ª anterior existe un error. Error encontrado es que si el user contiene el roll de ADMIN, no se puede desactivar, aspecto que no se tenía en cuenta. Realizar un cambio y proceder a la cuarta liberación del código **staging** y **main**.
+
 
 ### :white_check_mark: Criterios transversales **con pérdida de puntos por falta de calidad**
 * Uso correcto del flujo de trabajo ramificado. **Hasta -3 ptos**. 
@@ -131,5 +132,4 @@ Ejemplo resuelto:
 ### Slack Badge
 
 [![Slack](https://img.shields.io/badge/Slack-Join%20our%20workspace-4A154B?logo=slack&logoColor=white)](https://join.slack.com/t/bq0463/shared_invite/zt-48zy2svtx-eEBKx9T3sX4Cq7~azHgX8Q)
-
 [Slack](https://sonarcloud.io/organizations/bq0463/projects)
