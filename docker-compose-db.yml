@@ -13,15 +13,10 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - devopsNet
+
 volumes:
-  mysql_data:
-    name: "mysql-data"
   postgres_data:
     name: "postgres-data"
-  mongo_data:
-    name: "mongo-data"
-  mongo_config:
-    name: "mongo-config"
 
 networks:
   devopsNet:
