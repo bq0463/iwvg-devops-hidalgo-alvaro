@@ -87,4 +87,15 @@ class UserResourceFT {
                 .exchange()
                 .expectStatus().is5xxServerError();
     }
+
+    @Test
+    void testBillableTrue() {
+        webTestClient.get()
+                .uri("/user/1/billable")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(Boolean.class)
+                .isEqualTo(true);
+    }
+
 }
