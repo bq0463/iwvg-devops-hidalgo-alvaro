@@ -33,4 +33,9 @@ public class UserResource {
         return user.getFractions();
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable String id) {
+        service.deleteById(id);
+    }
+
 }
