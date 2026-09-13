@@ -34,6 +34,12 @@ public class UserResource {
         return user.getFractions();
     }
 
+    @GetMapping("/{id}/billable")
+    public boolean isBillable(@PathVariable String id) {
+        return service.isBillable(id);
+    }
+
+
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable String id) {
         service.deleteById(id);
@@ -43,6 +49,7 @@ public class UserResource {
     public User updateActive(@PathVariable String id, @RequestBody ActiveUserDto dto) {
         return service.updateActive(id, dto.active());
     }
+
 
 
 }
