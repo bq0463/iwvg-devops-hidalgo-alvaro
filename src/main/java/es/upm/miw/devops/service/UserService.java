@@ -17,20 +17,25 @@ public class UserService {
         this.repo = repo;
     }
 
+    @Transactional
     public User findById(String id) {
-        return repo.findById(id)
+        User user = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.getFractions().size();
+        return user;
     }
 
-    public java.util.List<User> findAll() {
+    public List<User> findAll() {
         return repo.findAll();
     }
 
     @Transactional
     public List<Fraction> findFractionsByUserId(String id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"))
-                .getFractions();
-    }
+        User user = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
+        user.getFractions().size();
+        return user.getFractions();
+    }
 }
