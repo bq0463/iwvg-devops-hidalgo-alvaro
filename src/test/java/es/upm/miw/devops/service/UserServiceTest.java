@@ -39,4 +39,17 @@ class UserServiceTest {
         assertNotNull(user);
         assertFalse(user.getFractions().isEmpty());
     }
+
+    @Test
+    void testDeleteUser() {
+        assertNotNull(userService.findById("3"));
+
+        userService.deleteById("3");
+        assertThrows(RuntimeException.class, () -> userService.findById("3"));
+    }
+
+    @Test
+    void testDeleteUserNotFound() {
+        assertThrows(RuntimeException.class, () -> userService.deleteById("999"));
+    }
 }

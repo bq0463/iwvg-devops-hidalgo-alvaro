@@ -25,4 +25,30 @@ class UserResourceFT {
                 .jsonPath("$.id").isEqualTo("1")
                 .jsonPath("$.fractions").isArray();
     }
+
+    @Test
+    void testDeleteUser() {
+        webTestClient.get()
+                .uri("/user/4")
+                .exchange()
+                .expectStatus().isOk();
+
+        webTestClient.delete()
+                .uri("/user/4")
+                .exchange()
+                .expectStatus().isOk();
+
+        webTestClient.get()
+                .uri("/user/4")
+                .exchange()
+                .expectStatus().is5xxServerError();
+    }
+
+    @Test
+    void testDeleteUserNotFound() {
+        webTestClient.delete()
+                .uri("/user/999")
+                .exchange()
+                .expectStatus().is5xxServerError();
+    }
 }
