@@ -58,4 +58,13 @@ public class UserService {
         return repo.save(user);
     }
 
+    @Transactional
+    public boolean isBillable(String id) {
+        User user = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return user.calculateBillable();
+    }
+
+
 }

@@ -19,6 +19,7 @@ public class User {
     private String province;
     private String postalCode;
     private boolean active;
+    private boolean billable;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Fraction> fractions;
@@ -29,7 +30,7 @@ public class User {
 
     public User(String id, String name, String familyName,
                 String email, String identity, String address,
-                String city, String province, String postalCode, Boolean active,
+                String city, String province, String postalCode, Boolean active,Boolean billable,
                 List<Fraction> fractions) {
 
         this.id = id;
@@ -42,7 +43,12 @@ public class User {
         this.province = province;
         this.postalCode = postalCode;
         this.active=active;
+        this.billable=billable;
         this.fractions = fractions;
+    }
+
+    public boolean isBillable() {
+        return billable;
     }
 
     public String getId() {
@@ -131,6 +137,10 @@ public class User {
         this.fractions.add(fraction);
     }
 
+    public void setBillable(boolean billable) {
+        this.billable = billable;
+    }
+
     public String fullName() {
         return this.name + " " + this.familyName;
     }
@@ -153,6 +163,21 @@ public class User {
                 ", postalCode='" + postalCode + '\'' +
                 ", fractions=" + fractions +
                 '}';
+    }
+
+    public boolean calculateBillable() {
+        return isNotBlank(name)
+                && isNotBlank(familyName)
+                && isNotBlank(email)
+                && isNotBlank(identity)
+                && isNotBlank(address)
+                && isNotBlank(city)
+                && isNotBlank(province)
+                && isNotBlank(postalCode);
+    }
+
+    private boolean isNotBlank(String value) {
+        return value != null && !value.trim().isEmpty();
     }
 
 }

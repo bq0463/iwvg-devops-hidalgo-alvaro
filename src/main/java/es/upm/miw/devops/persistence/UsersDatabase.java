@@ -45,10 +45,11 @@ public class UsersDatabase {
                 "Madrid",
                 "28001",
                 true,
+                false,
                 List.of(new Fraction(0, 1), new Fraction(1, 1), new Fraction(2, 1))
         );
         u1.getFractions().forEach(f -> f.setUser(u1));
-
+        u1.setBillable(u1.calculateBillable());
         User u2 = new User(
                 "2",
                 "Ana",
@@ -60,10 +61,11 @@ public class UsersDatabase {
                 "Madrid",
                 "28002",
                 true,
+                false,
                 List.of(new Fraction(2, 1), new Fraction(-1, 5), new Fraction(2, 4), new Fraction(4, 3))
         );
         u2.getFractions().forEach(f -> f.setUser(u2));
-
+        u2.setBillable(u2.calculateBillable());
         User u3 = new User(
                 "3",
                 "Oscar",
@@ -75,10 +77,11 @@ public class UsersDatabase {
                 "Madrid",
                 "28003",
                 true,
+                false,
                 List.of(new Fraction(1, 5), new Fraction(3, -6), new Fraction(1, 2), new Fraction(4, 4))
         );
         u3.getFractions().forEach(f -> f.setUser(u3));
-
+        u3.setBillable(u3.calculateBillable());
         User u4 = new User(
                 "4",
                 "Paula",
@@ -90,10 +93,11 @@ public class UsersDatabase {
                 "Madrid",
                 "28004",
                 true,
+                false,
                 List.of(new Fraction(2, 2), new Fraction(4, 4))
         );
         u4.getFractions().forEach(f -> f.setUser(u4));
-
+        u4.setBillable(u4.calculateBillable());
         User u5 = new User(
                 "5",
                 "Antonio",
@@ -105,10 +109,11 @@ public class UsersDatabase {
                 "Madrid",
                 "",
                 true,
+                false,
                 List.of(new Fraction(0, 1), new Fraction(0, -2), new Fraction(0, 3))
         );
         u5.getFractions().forEach(f -> f.setUser(u5));
-
+        u5.setBillable(u5.calculateBillable());
         User u6 = new User(
                 "6",
                 "Paula",
@@ -120,10 +125,11 @@ public class UsersDatabase {
                 "Madrid",
                 "28006",
                 true,
+                false,
                 List.of(new Fraction(0, 0), new Fraction(1, 0), new Fraction(1, 1))
         );
         u6.getFractions().forEach(f -> f.setUser(u6));
-
+        u6.setBillable(u6.calculateBillable());
         userRepository.saveAll(List.of(u1, u2, u3, u4, u5, u6));
 
         System.out.println(">>> initial data loaded");

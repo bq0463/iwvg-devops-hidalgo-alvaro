@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import es.upm.miw.devops.repositories.UserRepository;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ class UserServiceTest {
 
     @Autowired
     private UserService userService;
+    @Autowired UserRepository userRepository;
 
     @Test
     void testFindById() {
@@ -50,7 +52,7 @@ class UserServiceTest {
 
     @Test
     void testDeleteUserNotFound() {
-        assertThrows(RuntimeException.class, () -> userService.deleteById("999"));
+        assertThrows(RuntimeException.class, () -> userService.deleteById("no-existe"));
     }
 
     @Test
@@ -71,6 +73,41 @@ class UserServiceTest {
     @Test
     void testUpdateActiveUserNotFound() {
         assertThrows(RuntimeException.class, () -> userService.updateActive("999", true));
+    }
+
+    @Test
+    void testIsBillableTrue() {
+        // Usuario del seeder con todos los campos completos
+        boolean billable = userService.isBillable("1");
+        assertTrue(billable);
+    }
+
+    @Test
+    void testIsBillableFalse() {
+        // Creamos un usuario NO billable manualmente
+        User u = new User(
+                "999",
+                "Oscar",
+                "", // familyName vacío → NO billable
+                "oscar@example.com",
+                "12345678A",
+                "Calle Mayor 1",
+                "Madrid",
+                "Madrid",
+                "28001",
+                true,
+                false,
+                List.of()
+        );
+        userRepository.save(u);
+
+        boolean billable = userService.isBillable("999");
+        assertFalse(billable);
+    }
+
+    @Test
+    void testIsBillableUserNotFound() {
+        assertThrows(RuntimeException.class, () -> userService.isBillable("no-existe"));
     }
 
 }
