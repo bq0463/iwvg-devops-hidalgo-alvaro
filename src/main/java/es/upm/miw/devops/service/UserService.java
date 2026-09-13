@@ -3,6 +3,7 @@ package es.upm.miw.devops.service;
 import es.upm.miw.devops.code.Fraction;
 import es.upm.miw.devops.code.User;
 import es.upm.miw.devops.repositories.UserRepository;
+import es.upm.miw.devops.rest.dtos.PatchActiveUserDto;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import es.upm.miw.devops.rest.dtos.UpdateUserDto;
@@ -84,5 +85,19 @@ public class UserService {
 
         return repo.save(user);
     }
+
+    @Transactional
+    public void patchUsersActive(List<PatchActiveUserDto> dtos) {
+        for (PatchActiveUserDto dto : dtos) {
+            User user = repo.findById(dto.id())
+                    .orElseThrow(() -> new RuntimeException("User not found: " + dto.id()));
+
+            user.setActive(dto.active());
+            user.setBillable(user.calculateBillable());
+
+            repo.save(user);
+        }
+    }
+
 
 }
