@@ -2,6 +2,7 @@ package es.upm.miw.devops.service;
 
 import es.upm.miw.devops.code.User;
 import es.upm.miw.devops.code.Fraction;
+import es.upm.miw.devops.rest.dtos.UpdateUserDto;
 import es.upm.miw.devops.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,15 +58,12 @@ class UserServiceTest {
 
     @Test
     void testUpdateActive() {
-        // Usuario existe y está activo por defecto
         User user = userService.findById("1");
         assertTrue(user.isActive());
 
-        // Lo desactivamos
         User updated = userService.updateActive("1", false);
         assertFalse(updated.isActive());
 
-        // Comprobamos que persiste el cambio
         User reloaded = userService.findById("1");
         assertFalse(reloaded.isActive());
     }
@@ -77,18 +75,16 @@ class UserServiceTest {
 
     @Test
     void testIsBillableTrue() {
-        // Usuario del seeder con todos los campos completos
         boolean billable = userService.isBillable("1");
         assertTrue(billable);
     }
 
     @Test
     void testIsBillableFalse() {
-        // Creamos un usuario NO billable manualmente
         User u = new User(
                 "999",
                 "Oscar",
-                "", // familyName vacío → NO billable
+                "",
                 "oscar@example.com",
                 "12345678A",
                 "Calle Mayor 1",
@@ -108,6 +104,74 @@ class UserServiceTest {
     @Test
     void testIsBillableUserNotFound() {
         assertThrows(RuntimeException.class, () -> userService.isBillable("no-existe"));
+    }
+
+    @Test
+    void testUpdateUser() {
+        User original = userService.findById("1");
+        assertNotNull(original);
+
+        UpdateUserDto dto = new UpdateUserDto(
+                "Ana",
+                "Blanco",
+                "ana@example.com",
+                "87654321B",
+                "Avenida Sol 22",
+                "Madrid",
+                "Madrid",
+                "28003",
+                true
+        );
+
+        User updated = userService.updateUser("1", dto);
+
+        assertEquals("Ana", updated.getName());
+        assertEquals("Blanco", updated.getFamilyName());
+        assertEquals("ana@example.com", updated.getEmail());
+        assertEquals("87654321B", updated.getIdentity());
+        assertEquals("Avenida Sol 22", updated.getAddress());
+        assertEquals("Madrid", updated.getCity());
+        assertEquals("Madrid", updated.getProvince());
+        assertEquals("28003", updated.getPostalCode());
+        assertTrue(updated.isActive());
+
+        assertTrue(updated.isBillable());
+    }
+
+    @Test
+    void testUpdateUserNotBillable() {
+        UpdateUserDto dto = new UpdateUserDto(
+                "",
+                "Blanco",
+                "ana@example.com",
+                "87654321B",
+                "Avenida Sol 22",
+                "Madrid",
+                "Madrid",
+                "28003",
+                true
+        );
+
+        User updated = userService.updateUser("2", dto);
+
+        assertFalse(updated.isBillable());
+    }
+
+    @Test
+    void testUpdateUserNotFound() {
+        UpdateUserDto dto = new UpdateUserDto(
+                "Ana",
+                "Blanco",
+                "ana@example.com",
+                "87654321B",
+                "Avenida Sol 22",
+                "Madrid",
+                "Madrid",
+                "28003",
+                true
+        );
+
+        assertThrows(RuntimeException.class, () -> userService.updateUser("9999", dto));
     }
 
 }
