@@ -25,6 +25,7 @@ EXPOSE 8080
    # Define un comando para cuando se inicialice el contenedor en el host: java -jar app.jar
 CMD ["java", "-jar", "app.jar"]
 
+ENV SPRING_PROFILES_ACTIVE=docker
 
 # ------------------------------------- COMANDOS ----------------------------------------------------------
 # Construir la imagen, ATENCION!!! existe un punto al final que se debe incluir
