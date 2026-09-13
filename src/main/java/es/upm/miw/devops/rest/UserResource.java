@@ -2,6 +2,7 @@ package es.upm.miw.devops.rest;
 
 import es.upm.miw.devops.code.Fraction;
 import es.upm.miw.devops.code.User;
+import es.upm.miw.devops.rest.dtos.ActiveUserDto;
 import es.upm.miw.devops.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,5 +38,11 @@ public class UserResource {
     public void deleteById(@PathVariable String id) {
         service.deleteById(id);
     }
+
+    @PutMapping("/{id}/active")
+    public User updateActive(@PathVariable String id, @RequestBody ActiveUserDto dto) {
+        return service.updateActive(id, dto.active());
+    }
+
 
 }
