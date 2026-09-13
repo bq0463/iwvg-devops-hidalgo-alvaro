@@ -38,4 +38,13 @@ public class UserService {
         user.getFractions().size();
         return user.getFractions();
     }
+
+    @Transactional
+    public void deleteById(String id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("User not found");
+        }
+        repo.deleteById(id);
+    }
+
 }
