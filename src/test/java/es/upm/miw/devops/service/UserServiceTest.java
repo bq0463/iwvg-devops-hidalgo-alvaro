@@ -2,6 +2,7 @@ package es.upm.miw.devops.service;
 
 import es.upm.miw.devops.code.User;
 import es.upm.miw.devops.code.Fraction;
+import es.upm.miw.devops.rest.dtos.PatchActiveUserDto;
 import es.upm.miw.devops.rest.dtos.UpdateUserDto;
 import es.upm.miw.devops.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -172,6 +173,31 @@ class UserServiceTest {
         );
 
         assertThrows(RuntimeException.class, () -> userService.updateUser("9999", dto));
+    }
+
+    @Test
+    void testPatchUsersActive() {
+        List<PatchActiveUserDto> dtos = List.of(
+                new PatchActiveUserDto("1", false),
+                new PatchActiveUserDto("2", true)
+        );
+
+        userService.patchUsersActive(dtos);
+
+        User updated1 = userService.findById("1");
+        User updated2 = userService.findById("2");
+
+        assertFalse(updated1.isActive());
+        assertTrue(updated2.isActive());
+    }
+
+    @Test
+    void testPatchUsersActiveNotFound() {
+        List<PatchActiveUserDto> dtos = List.of(
+                new PatchActiveUserDto("9999", true)
+        );
+
+        assertThrows(RuntimeException.class, () -> userService.patchUsersActive(dtos));
     }
 
 }
