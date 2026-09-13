@@ -3,6 +3,7 @@ package es.upm.miw.devops.rest;
 import es.upm.miw.devops.code.Fraction;
 import es.upm.miw.devops.code.User;
 import es.upm.miw.devops.rest.dtos.ActiveUserDto;
+import es.upm.miw.devops.rest.dtos.UpdateUserDto;
 import es.upm.miw.devops.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +51,10 @@ public class UserResource {
         return service.updateActive(id, dto.active());
     }
 
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable String id, @RequestBody UpdateUserDto dto) {
+        return service.updateUser(id, dto);
+    }
 
 
 }

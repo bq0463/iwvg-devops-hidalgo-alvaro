@@ -5,7 +5,7 @@ import es.upm.miw.devops.code.User;
 import es.upm.miw.devops.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
+import es.upm.miw.devops.rest.dtos.UpdateUserDto;
 import java.util.List;
 
 @Service
@@ -66,5 +66,23 @@ public class UserService {
         return user.calculateBillable();
     }
 
+    @Transactional
+    public User updateUser(String id, UpdateUserDto dto) {
+        User user = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setName(dto.name());
+        user.setFamilyName(dto.familyName());
+        user.setEmail(dto.email());
+        user.setIdentity(dto.identity());
+        user.setAddress(dto.address());
+        user.setCity(dto.city());
+        user.setProvince(dto.province());
+        user.setPostalCode(dto.postalCode());
+        user.setActive(dto.active());
+        user.setBillable(user.calculateBillable());
+
+        return repo.save(user);
+    }
 
 }
