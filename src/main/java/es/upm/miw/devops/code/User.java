@@ -81,7 +81,7 @@ public class User {
         return postalCode;
     }
 
-    public boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
