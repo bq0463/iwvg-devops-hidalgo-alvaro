@@ -52,4 +52,25 @@ class UserServiceTest {
     void testDeleteUserNotFound() {
         assertThrows(RuntimeException.class, () -> userService.deleteById("999"));
     }
+
+    @Test
+    void testUpdateActive() {
+        // Usuario existe y está activo por defecto
+        User user = userService.findById("1");
+        assertTrue(user.isActive());
+
+        // Lo desactivamos
+        User updated = userService.updateActive("1", false);
+        assertFalse(updated.isActive());
+
+        // Comprobamos que persiste el cambio
+        User reloaded = userService.findById("1");
+        assertFalse(reloaded.isActive());
+    }
+
+    @Test
+    void testUpdateActiveUserNotFound() {
+        assertThrows(RuntimeException.class, () -> userService.updateActive("999", true));
+    }
+
 }

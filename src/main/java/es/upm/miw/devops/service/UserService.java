@@ -47,4 +47,15 @@ public class UserService {
         repo.deleteById(id);
     }
 
+    @Transactional
+    public User updateActive(String id, boolean active) {
+        User user = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.getFractions().size();
+
+        user.setActive(active);
+        return repo.save(user);
+    }
+
 }

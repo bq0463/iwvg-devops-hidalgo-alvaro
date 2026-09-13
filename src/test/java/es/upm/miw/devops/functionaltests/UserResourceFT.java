@@ -51,4 +51,40 @@ class UserResourceFT {
                 .exchange()
                 .expectStatus().is5xxServerError();
     }
+
+    @Test
+    void testUpdateActive() {
+        webTestClient.get()
+                .uri("/user/2")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.active").isEqualTo(true);
+
+        webTestClient.put()
+                .uri("/user/2/active")
+                .bodyValue("{\"active\": false}")
+                .header("Content-Type", "application/json")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.active").isEqualTo(false);
+
+        webTestClient.get()
+                .uri("/user/2")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.active").isEqualTo(false);
+    }
+
+    @Test
+    void testUpdateActiveUserNotFound() {
+        webTestClient.put()
+                .uri("/user/999/active")
+                .bodyValue("{\"active\": true}")
+                .header("Content-Type", "application/json")
+                .exchange()
+                .expectStatus().is5xxServerError();
+    }
 }
