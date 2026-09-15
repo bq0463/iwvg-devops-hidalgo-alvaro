@@ -7,6 +7,12 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User {
+
+    public enum Roll {
+        USER,
+        ADMIN
+    }
+
     @Id
     private String id;
 
@@ -21,6 +27,9 @@ public class User {
     private boolean active;
     private boolean billable;
 
+    @Enumerated(EnumType.STRING)
+    private Roll roll;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Fraction> fractions;
 
@@ -31,7 +40,7 @@ public class User {
     public User(String id, String name, String familyName,
                 String email, String identity, String address,
                 String city, String province, String postalCode, Boolean active,Boolean billable,
-                List<Fraction> fractions) {
+                List<Fraction> fractions, Roll roll) {
 
         this.id = id;
         this.name = name;
@@ -45,6 +54,7 @@ public class User {
         this.active=active;
         this.billable=billable;
         this.fractions = fractions;
+        this.roll = roll;
     }
 
     public boolean isBillable() {
@@ -57,6 +67,10 @@ public class User {
 
     public String getName() {
         return this.name;
+    }
+
+    public Roll getRoll() {
+        return roll;
     }
 
     public String getFamilyName() {
@@ -103,6 +117,10 @@ public class User {
         this.familyName = familyName;
     }
 
+    public void setRoll(Roll roll) {
+        this.roll = roll;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -141,10 +159,6 @@ public class User {
         this.billable = billable;
     }
 
-    public String fullName() {
-        return this.name + " " + this.familyName;
-    }
-
     public String initials() {
         return this.name.charAt(0) + ".";
     }
@@ -154,6 +168,7 @@ public class User {
         return "User{" +
                 "id='" + id + '\'' +
                 ", firstName='" + name + '\'' +
+                ", initials='" + initials() + '\'' +
                 ", familyName='" + familyName + '\'' +
                 ", email='" + email + '\'' +
                 ", identity='" + identity + '\'' +
@@ -162,6 +177,9 @@ public class User {
                 ", province='" + province + '\'' +
                 ", postalCode='" + postalCode + '\'' +
                 ", fractions=" + fractions +
+                ", active=" + active +
+                ", billable=" + billable +
+                ", roll=" + roll +
                 '}';
     }
 
