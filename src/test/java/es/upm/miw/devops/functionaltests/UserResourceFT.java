@@ -181,8 +181,8 @@ class UserResourceFT {
     @Test
     void testPatchUsersActive() {
         List<PatchActiveUserDto> dtos = List.of(
-                new PatchActiveUserDto("1", false),
-                new PatchActiveUserDto("2", true)
+                new PatchActiveUserDto("2", false),
+                new PatchActiveUserDto("3", true)
         );
 
         webTestClient.patch()
