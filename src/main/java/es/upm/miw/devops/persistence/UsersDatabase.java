@@ -46,7 +46,8 @@ public class UsersDatabase {
                 "28001",
                 true,
                 false,
-                List.of(new Fraction(0, 1), new Fraction(1, 1), new Fraction(2, 1))
+                List.of(new Fraction(0, 1), new Fraction(1, 1), new Fraction(2, 1)),
+                User.Roll.ADMIN
         );
         u1.getFractions().forEach(f -> f.setUser(u1));
         u1.setBillable(u1.calculateBillable());
@@ -62,7 +63,8 @@ public class UsersDatabase {
                 "28002",
                 true,
                 false,
-                List.of(new Fraction(2, 1), new Fraction(-1, 5), new Fraction(2, 4), new Fraction(4, 3))
+                List.of(new Fraction(2, 1), new Fraction(-1, 5), new Fraction(2, 4), new Fraction(4, 3)),
+                User.Roll.USER
         );
         u2.getFractions().forEach(f -> f.setUser(u2));
         u2.setBillable(u2.calculateBillable());
@@ -78,7 +80,8 @@ public class UsersDatabase {
                 "28003",
                 true,
                 false,
-                List.of(new Fraction(1, 5), new Fraction(3, -6), new Fraction(1, 2), new Fraction(4, 4))
+                List.of(new Fraction(1, 5), new Fraction(3, -6), new Fraction(1, 2), new Fraction(4, 4)),
+                User.Roll.USER
         );
         u3.getFractions().forEach(f -> f.setUser(u3));
         u3.setBillable(u3.calculateBillable());
@@ -94,7 +97,8 @@ public class UsersDatabase {
                 "28004",
                 true,
                 false,
-                List.of(new Fraction(2, 2), new Fraction(4, 4))
+                List.of(new Fraction(2, 2), new Fraction(4, 4)),
+                User.Roll.USER
         );
         u4.getFractions().forEach(f -> f.setUser(u4));
         u4.setBillable(u4.calculateBillable());
@@ -110,7 +114,8 @@ public class UsersDatabase {
                 "",
                 true,
                 false,
-                List.of(new Fraction(0, 1), new Fraction(0, -2), new Fraction(0, 3))
+                List.of(new Fraction(0, 1), new Fraction(0, -2), new Fraction(0, 3)),
+                User.Roll.USER
         );
         u5.getFractions().forEach(f -> f.setUser(u5));
         u5.setBillable(u5.calculateBillable());
@@ -126,7 +131,8 @@ public class UsersDatabase {
                 "28006",
                 true,
                 false,
-                List.of(new Fraction(0, 0), new Fraction(1, 0), new Fraction(1, 1))
+                List.of(new Fraction(0, 0), new Fraction(1, 0), new Fraction(1, 1)),
+                User.Roll.USER
         );
         u6.getFractions().forEach(f -> f.setUser(u6));
         u6.setBillable(u6.calculateBillable());
