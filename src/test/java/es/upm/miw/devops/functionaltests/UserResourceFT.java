@@ -191,18 +191,16 @@ class UserResourceFT {
                 .exchange()
                 .expectStatus().isOk();
 
-        // Verificar usuario 1
         webTestClient.get()
-                .uri("/user/1")
+                .uri("/user/2")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.active").isEqualTo(false)
                 .jsonPath("$.billable").isEqualTo(true); // se recalcula
 
-        // Verificar usuario 2
         webTestClient.get()
-                .uri("/user/2")
+                .uri("/user/3")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
