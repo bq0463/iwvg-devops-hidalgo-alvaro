@@ -59,13 +59,13 @@ class UserServiceTest {
 
     @Test
     void testUpdateActive() {
-        User user = userService.findById("1");
+        User user = userService.findById("2");
         assertTrue(user.isActive());
 
-        User updated = userService.updateActive("1", false);
+        User updated = userService.updateActive("2", false);
         assertFalse(updated.isActive());
 
-        User reloaded = userService.findById("1");
+        User reloaded = userService.findById("2");
         assertFalse(reloaded.isActive());
     }
 
@@ -94,7 +94,8 @@ class UserServiceTest {
                 "28001",
                 true,
                 false,
-                List.of()
+                List.of(),
+                User.Roll.USER
         );
         userRepository.save(u);
 
@@ -178,14 +179,14 @@ class UserServiceTest {
     @Test
     void testPatchUsersActive() {
         List<PatchActiveUserDto> dtos = List.of(
-                new PatchActiveUserDto("1", false),
-                new PatchActiveUserDto("2", true)
+                new PatchActiveUserDto("2", false),
+                new PatchActiveUserDto("1", true)
         );
 
         userService.patchUsersActive(dtos);
 
-        User updated1 = userService.findById("1");
-        User updated2 = userService.findById("2");
+        User updated1 = userService.findById("2");
+        User updated2 = userService.findById("1");
 
         assertFalse(updated1.isActive());
         assertTrue(updated2.isActive());
@@ -195,6 +196,88 @@ class UserServiceTest {
     void testPatchUsersActiveNotFound() {
         List<PatchActiveUserDto> dtos = List.of(
                 new PatchActiveUserDto("9999", true)
+        );
+
+        assertThrows(RuntimeException.class, () -> userService.patchUsersActive(dtos));
+    }
+
+    @Test
+    void testUpdateActiveAdminForbidden() {
+        User admin = new User(
+                "51",
+                "Admin",
+                "Root",
+                "admin@example.com",
+                "99999999A",
+                "Calle Admin 1",
+                "Madrid",
+                "Madrid",
+                "28001",
+                true,
+                true,
+                List.of(),
+                User.Roll.ADMIN
+        );
+        userRepository.save(admin);
+
+        assertThrows(RuntimeException.class, () -> userService.updateActive("51", false));
+    }
+
+    @Test
+    void testUpdateUserAdminForbidden() {
+        User admin = new User(
+                "50",
+                "Admin",
+                "Root",
+                "admin2@example.com",
+                "99999999B",
+                "Calle Admin 2",
+                "Madrid",
+                "Madrid",
+                "28002",
+                true,
+                true,
+                List.of(),
+                User.Roll.ADMIN
+        );
+        userRepository.save(admin);
+
+        UpdateUserDto dto = new UpdateUserDto(
+                "Nuevo",
+                "Nombre",
+                "nuevo@example.com",
+                "11111111C",
+                "Nueva Calle",
+                "Madrid",
+                "Madrid",
+                "28003",
+                false
+        );
+
+        assertThrows(RuntimeException.class, () -> userService.updateUser("50", dto));
+    }
+
+    @Test
+    void testPatchUsersActiveAdminForbidden() {
+        User admin = new User(
+                "52",
+                "Admin",
+                "Root",
+                "admin3@example.com",
+                "99999999C",
+                "Calle Admin 3",
+                "Madrid",
+                "Madrid",
+                "28003",
+                true,
+                true,
+                List.of(),
+                User.Roll.ADMIN
+        );
+        userRepository.save(admin);
+
+        List<PatchActiveUserDto> dtos = List.of(
+                new PatchActiveUserDto("52", false)
         );
 
         assertThrows(RuntimeException.class, () -> userService.patchUsersActive(dtos));

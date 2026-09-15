@@ -53,6 +53,10 @@ public class UserService {
         User user = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        if (user.getRoll() == User.Roll.ADMIN && !active) {
+            throw new RuntimeException("ADMIN users cannot be deactivated");
+        }
+
         user.getFractions().size();
 
         user.setActive(active);
@@ -71,6 +75,10 @@ public class UserService {
     public User updateUser(String id, UpdateUserDto dto) {
         User user = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (user.getRoll() == User.Roll.ADMIN && !dto.active()) {
+            throw new RuntimeException("ADMIN users cannot be deactivated");
+        }
 
         user.setName(dto.name());
         user.setFamilyName(dto.familyName());
@@ -91,6 +99,9 @@ public class UserService {
         for (PatchActiveUserDto dto : dtos) {
             User user = repo.findById(dto.id())
                     .orElseThrow(() -> new RuntimeException("User not found: " + dto.id()));
+            if (user.getRoll() == User.Roll.ADMIN && !dto.active()) {
+                throw new RuntimeException("ADMIN users cannot be deactivated: " + dto.id());
+            }
 
             user.setActive(dto.active());
             user.setBillable(user.calculateBillable());
