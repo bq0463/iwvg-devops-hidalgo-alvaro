@@ -54,5 +54,6 @@ jobs:
 
       - name: Deploy on Render
         run: |
-          curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_DEPLOY_HOOK_TOKEN }}" && echo "Deployed on Render!" || echo "Failed to deploy on Render!"
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" && echo "Deployed on Render!" || echo "Failed to deploy on Render!"
           docker image prune --filter "until=12h" -f
+      
