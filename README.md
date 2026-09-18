@@ -2,18 +2,20 @@
 ## Ingeniería Web: Visión General (IWVG) DevOps
 > Este proyecto es un apoyo docente de la asignatura. Cada release liberada corresponde al código utilizado en clase del curso indicado
 
-[![GitHub](https://img.shields.io/github/license/miw-upm/iwvg-devops?color=informational)](https://github.com/miw-upm/iwvg-devops/blob/develop/LICENSE.md)
-[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/miw-upm/iwvg-devops?color=informational)](https://github.com/miw-upm/iwvg-devops/releases)
-![GitHub Release Date](https://img.shields.io/github/release-date/miw-upm/iwvg-devops?color=informational)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/miw-upm/iwvg-devops)
-![GitHub issues](https://img.shields.io/github/issues/miw-upm/iwvg-devops?color=important)
-![GitHub closed issues](https://img.shields.io/github/issues-closed/miw-upm/iwvg-devops?color=informational)
+[![GitHub License](https://img.shields.io/github/license/bq0463/iwvg-devops-hidalgo-alvaro?color=informational)](https://github.com/bq0463/iwvg-devops-hidalgo-alvaro/blob/develop/LICENSE.md)
+[![GitHub release](https://img.shields.io/github/v/release/bq0463/iwvg-devops-hidalgo-alvaro?color=informational)](https://github.com/bq0463/iwvg-devops-hidalgo-alvaro/releases)
+![GitHub Release Date](https://img.shields.io/github/release-date/bq0463/iwvg-devops-hidalgo-alvaro?color=informational)
+![GitHub code size](https://img.shields.io/github/languages/code-size/bq0463/iwvg-devops-hidalgo-alvaro)
+![GitHub issues](https://img.shields.io/github/issues/bq0463/iwvg-devops-hidalgo-alvaro?color=important)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/bq0463/iwvg-devops-hidalgo-alvaro?color=informational)
 
 ### Estado del código
-[![DevOps](https://github.com/bq0463/iwvg-devops-hidalgo-alvaro/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/bq0463/iwvg-devops-hidalgo-alvaro/actions/workflows/continuous-integration.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bq0463_iwvg-devops-hidalgo-alvaro&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bq0463_iwvg-devops-hidalgo-alvaro)
-[![Render broken](https://iwvg-devops-latest.onrender.com/version-badge)](https://iwvg-devops-latest.onrender.com/swagger-ui.html)
+[![CI](https://github.com/bq0463/iwvg-devops-hidalgo-alvaro/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/bq0463/iwvg-devops-hidalgo-alvaro/actions/workflows/continuous-integration.yml)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bq0463_iwvg-devops-hidalgo-alvaro&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bq0463_iwvg-devops-hidalgo-alvaro)
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=bq0463_iwvg-devops-hidalgo-alvaro)
+[![Slack](https://img.shields.io/badge/Slack-Join%20our%20workspace-4A154B?logo=slack&logoColor=white)](https://join.slack.com/t/bq0463/shared_invite/zt-48zy2svtx-eEBKx9T3sX4Cq7~azHgX8Q)
+[![Render Deploy](https://iwvg-devops-hidalgo-alvaro.onrender.com/version-badge)](https://iwvg-devops-hidalgo-alvaro.onrender.com/swagger-ui.html)
 
 ### Tecnologías necesarias
 `Java` `Maven` `GitHub` `GitHub Actions` `Sonarcloud` `Slack` `Spring-Boot` `GitHub Packages` `Docker` `OpenAPI`
@@ -121,15 +123,5 @@ Se crearán las siguientes 2 historias (**Feature**).
 Indicar como texto en la subida la **URL de GitHub**
 > **NOTA. Acordarse de dar al botón de envío**
 
-Ejemplo resuelto:
+Resumen de las ramas:
 ![](docs/miw-iwvg-devops-demo.png)
-
-### Sonar Badge
-
-[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=bq0463_iwvg-devops-hidalgo-alvaro)
-[SonarCloud](https://sonarcloud.io/organizations/bq0463/projects)
-
-### Slack Badge
-
-[![Slack](https://img.shields.io/badge/Slack-Join%20our%20workspace-4A154B?logo=slack&logoColor=white)](https://join.slack.com/t/bq0463/shared_invite/zt-48zy2svtx-eEBKx9T3sX4Cq7~azHgX8Q)
-[Slack](https://sonarcloud.io/organizations/bq0463/projects)
