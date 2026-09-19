@@ -54,10 +54,10 @@ jobs:
           username: ${{ secrets.AWS_LIGHTSAIL_USER_MAIN }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY_MAIN }}
           script: |
-            echo ${{ secrets.GHCR_PERSONAL_ACCESS_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo ${{ secrets.GHCR_PERSONAL_ACCESS_TOKEN }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
             # Ensure network exists
-            sudo docker network inspect devops >/dev/null 2>&1 || docker network create devops
+            sudo docker network inspect devops >/dev/null 2>&1 || sudo docker network create devops
 
             sudo docker pull ghcr.io/${{ env.REPOSITORY }}:latest
             sudo docker rm -f ${{ env.ARTIFACT }} || true
