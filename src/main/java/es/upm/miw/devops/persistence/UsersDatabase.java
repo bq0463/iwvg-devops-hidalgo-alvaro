@@ -3,31 +3,29 @@ package es.upm.miw.devops.persistence;
 import es.upm.miw.devops.code.Fraction;
 import es.upm.miw.devops.code.User;
 import es.upm.miw.devops.repositories.UserRepository;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import java.util.List;
 
-@Profile({"dev","test"})
+@Profile({"dev", "test", "pre", "prod"})
 @Configuration
 public class UsersDatabase {
 
     @Bean
-    public CommandLineRunner init(UserRepository userRepository) {
+    public ApplicationRunner init(UserRepository userRepository) {
         return args -> {
 
             long userCount = userRepository.count();
 
-
             if (userCount > 0) {
-                System.out.println(">>>  DB is not empty (" + userCount + "). No se cargan datos iniciales.");
+                System.out.println(">>> DB is not empty (" + userCount + "). No initial data loaded.");
                 return;
             }
 
-
-            System.out.println(">>> DB is empty. Loading initial data");
+            System.out.println(">>> DB is empty. Loading initial data...");
             loadData(userRepository);
         };
     }
@@ -51,6 +49,7 @@ public class UsersDatabase {
         );
         u1.getFractions().forEach(f -> f.setUser(u1));
         u1.setBillable(u1.calculateBillable());
+
         User u2 = new User(
                 "2",
                 "Ana",
@@ -68,6 +67,7 @@ public class UsersDatabase {
         );
         u2.getFractions().forEach(f -> f.setUser(u2));
         u2.setBillable(u2.calculateBillable());
+
         User u3 = new User(
                 "3",
                 "Oscar",
@@ -85,6 +85,7 @@ public class UsersDatabase {
         );
         u3.getFractions().forEach(f -> f.setUser(u3));
         u3.setBillable(u3.calculateBillable());
+
         User u4 = new User(
                 "4",
                 "Paula",
@@ -102,6 +103,7 @@ public class UsersDatabase {
         );
         u4.getFractions().forEach(f -> f.setUser(u4));
         u4.setBillable(u4.calculateBillable());
+
         User u5 = new User(
                 "5",
                 "Antonio",
@@ -119,6 +121,7 @@ public class UsersDatabase {
         );
         u5.getFractions().forEach(f -> f.setUser(u5));
         u5.setBillable(u5.calculateBillable());
+
         User u6 = new User(
                 "6",
                 "Paula",
@@ -136,9 +139,9 @@ public class UsersDatabase {
         );
         u6.getFractions().forEach(f -> f.setUser(u6));
         u6.setBillable(u6.calculateBillable());
+
         userRepository.saveAll(List.of(u1, u2, u3, u4, u5, u6));
 
-        System.out.println(">>> initial data loaded");
+        System.out.println(">>> Initial data loaded");
     }
-
 }
