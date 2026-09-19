@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/iwvgdb
-    username: postgres
-    password: postgres
+    username: ${secrets.POSTGRES_USER}
+    password: ${secrets.POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
