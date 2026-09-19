@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://postgres-server:5432/iwvgdb
-    username: postgres
-    password: postgres
+    username: ${secrets.POSTGRES_USER}
+    password: ${secrets.POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
