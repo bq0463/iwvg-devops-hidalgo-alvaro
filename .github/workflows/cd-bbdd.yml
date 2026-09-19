@@ -1,0 +1,48 @@
+name: cd-bbdd.yml
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  deploy-bbdd:
+    name: Deploy PostgreSQL on AWS Lightsail
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔐 Connect to AWS Lightsail and deploy PostgreSQL
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.AWS_LIGHTSAIL_IP_MAIN }}
+          username: ${{ secrets.AWS_LIGHTSAIL_USER_MAIN }}
+          key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY_MAIN }}
+          script: |
+            echo "🚀 Starting PostgreSQL deployment..."
+
+            # Create docker network if not exists
+            docker network inspect devops >/dev/null 2>&1 || docker network create devops
+
+            # Stop and remove old container if exists
+            docker rm -f postgres-devops || true
+
+            # Create volume if not exists
+            docker volume inspect pgdata >/dev/null 2>&1 || docker volume create pgdata
+
+            # Run PostgreSQL container
+            docker run -d \
+              --name postgres-devops \
+              --restart always \
+              --network devops \
+              -p 5432:5432 \
+              -e POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
+              -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
+              -e POSTGRES_DB=${{ secrets.POSTGRES_DB }} \
+              -v pgdata:/var/lib/postgresql/data \
+              postgres:15
+
+            echo "⏳ Waiting for PostgreSQL to be ready..."
+            sleep 10
+
+            docker ps | grep postgres-devops && echo "✅ PostgreSQL deployed successfully" || echo "❌ PostgreSQL failed to start"
