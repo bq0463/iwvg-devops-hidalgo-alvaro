@@ -23,7 +23,7 @@ public class UserService {
         User user = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        user.getFractions().size();
+        int ig = user.getFractions().size();
         return user;
     }
 
@@ -36,7 +36,7 @@ public class UserService {
         User user = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        user.getFractions().size();
+        int ig = user.getFractions().size();
         return user.getFractions();
     }
 
@@ -57,7 +57,7 @@ public class UserService {
             throw new RuntimeException("ADMIN users cannot be deactivated");
         }
 
-        user.getFractions().size();
+        int ig = user.getFractions().size();
 
         user.setActive(active);
         return repo.save(user);
