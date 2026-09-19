@@ -22,16 +22,16 @@ jobs:
             echo "🚀 Starting PostgreSQL deployment..."
 
             # Create docker network if not exists
-            docker network inspect devops >/dev/null 2>&1 || docker network create devops
+            sudo docker network inspect devops >/dev/null 2>&1 || docker network create devops
 
             # Stop and remove old container if exists
-            docker rm -f postgres-devops || true
+            sudo docker rm -f postgres-devops || true
 
             # Create volume if not exists
-            docker volume inspect pgdata >/dev/null 2>&1 || docker volume create pgdata
+            sudo docker volume inspect pgdata >/dev/null 2>&1 || docker volume create pgdata
 
             # Run PostgreSQL container
-            docker run -d \
+            sudo docker run -d \
               --name postgres-devops \
               --restart always \
               --network devops \
@@ -45,4 +45,4 @@ jobs:
             echo "⏳ Waiting for PostgreSQL to be ready..."
             sleep 10
 
-            docker ps | grep postgres-devops && echo "✅ PostgreSQL deployed successfully" || echo "❌ PostgreSQL failed to start"
+            sudo docker ps | grep postgres-devops && echo "✅ PostgreSQL deployed successfully" || echo "❌ PostgreSQL failed to start"

@@ -7,6 +7,7 @@ env:
   REPOSITORY: ${{ github.repository }}
   GHCR_URL: ghcr.io
 
+
 jobs:
   cd:
     name: Build & Push GitHub Package & Deploy on AWS Lightsail
@@ -53,18 +54,18 @@ jobs:
           username: ${{ secrets.AWS_LIGHTSAIL_USER_MAIN }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY_MAIN }}
           script: |
-            echo ${{ secrets.GHCR_PERSONAL_ACCESS_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo ${{ secrets.GHCR_PERSONAL_ACCESS_TOKEN }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
             # Ensure network exists
-            docker network inspect devops >/dev/null 2>&1 || docker network create devops
+            sudo docker network inspect devops >/dev/null 2>&1 || sudo docker network create devops
 
-            docker pull ghcr.io/${{ env.REPOSITORY }}:latest
-            docker rm -f ${{ env.ARTIFACT }} || true
+            sudo docker pull ghcr.io/${{ env.REPOSITORY }}:latest
+            sudo docker rm -f ${{ env.ARTIFACT }} || true
 
-            docker run -d \
+            sudo docker run -d \
               --name ${{ env.ARTIFACT }} \
               --restart always \
-              --memory 512m \
+              --memory 1024m \
               --memory-swap 1024m \
               --network devops \
               -p 10000:10000 \
@@ -77,4 +78,4 @@ jobs:
             echo "⏳ waiting for container to be up"
             sleep 15
 
-            docker ps | grep ${{ env.ARTIFACT }} && echo "✅ Deploy successful" || echo "❌ Deploy failed"
+            sudo docker ps | grep ${{ env.ARTIFACT }} && echo "✅ Deploy successful" || echo "❌ Deploy failed"
