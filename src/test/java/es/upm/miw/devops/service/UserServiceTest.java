@@ -1,15 +1,14 @@
 package es.upm.miw.devops.service;
 
-import es.upm.miw.devops.code.User;
 import es.upm.miw.devops.code.Fraction;
+import es.upm.miw.devops.code.User;
+import es.upm.miw.devops.repositories.UserRepository;
 import es.upm.miw.devops.rest.dtos.PatchActiveUserDto;
 import es.upm.miw.devops.rest.dtos.UpdateUserDto;
-import es.upm.miw.devops.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import es.upm.miw.devops.repositories.UserRepository;
 
 import java.util.List;
 
@@ -21,13 +20,27 @@ class UserServiceTest {
 
     @Autowired
     private UserService userService;
-    @Autowired UserRepository userRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     void testFindById() {
         User user = userService.findById("1");
         assertNotNull(user);
         assertEquals("1", user.getId());
+    }
+
+    @Test
+    void testFindByIdNotFound() {
+        assertThrows(RuntimeException.class, () -> userService.findById("no-existe"));
+    }
+
+    @Test
+    void testFindAll() {
+        List<User> users = userService.findAll();
+        assertNotNull(users);
+        assertFalse(users.isEmpty());
     }
 
     @Test
@@ -38,16 +51,13 @@ class UserServiceTest {
     }
 
     @Test
-    void testUserHasFractions() {
-        User user = userService.findById("2");
-        assertNotNull(user);
-        assertFalse(user.getFractions().isEmpty());
+    void testFindFractionsByUserIdNotFound() {
+        assertThrows(RuntimeException.class, () -> userService.findFractionsByUserId("no-existe"));
     }
 
     @Test
     void testDeleteUser() {
         assertNotNull(userService.findById("3"));
-
         userService.deleteById("3");
         assertThrows(RuntimeException.class, () -> userService.findById("3"));
     }
@@ -75,9 +85,30 @@ class UserServiceTest {
     }
 
     @Test
+    void testUpdateActiveAdminForbidden() {
+        User admin = new User(
+                "51",
+                "Admin",
+                "Root",
+                "admin@example.com",
+                "99999999A",
+                "Calle Admin 1",
+                "Madrid",
+                "Madrid",
+                "28001",
+                true,
+                true,
+                List.of(),
+                User.Roll.ADMIN
+        );
+        userRepository.save(admin);
+
+        assertThrows(RuntimeException.class, () -> userService.updateActive("51", false));
+    }
+
+    @Test
     void testIsBillableTrue() {
-        boolean billable = userService.isBillable("1");
-        assertTrue(billable);
+        assertTrue(userService.isBillable("1"));
     }
 
     @Test
@@ -99,8 +130,7 @@ class UserServiceTest {
         );
         userRepository.save(u);
 
-        boolean billable = userService.isBillable("999");
-        assertFalse(billable);
+        assertFalse(userService.isBillable("999"));
     }
 
     @Test
@@ -136,7 +166,6 @@ class UserServiceTest {
         assertEquals("Madrid", updated.getProvince());
         assertEquals("28003", updated.getPostalCode());
         assertTrue(updated.isActive());
-
         assertTrue(updated.isBillable());
     }
 
@@ -155,7 +184,6 @@ class UserServiceTest {
         );
 
         User updated = userService.updateUser("2", dto);
-
         assertFalse(updated.isBillable());
     }
 
@@ -174,53 +202,6 @@ class UserServiceTest {
         );
 
         assertThrows(RuntimeException.class, () -> userService.updateUser("9999", dto));
-    }
-
-    @Test
-    void testPatchUsersActive() {
-        List<PatchActiveUserDto> dtos = List.of(
-                new PatchActiveUserDto("2", false),
-                new PatchActiveUserDto("1", true)
-        );
-
-        userService.patchUsersActive(dtos);
-
-        User updated1 = userService.findById("2");
-        User updated2 = userService.findById("1");
-
-        assertFalse(updated1.isActive());
-        assertTrue(updated2.isActive());
-    }
-
-    @Test
-    void testPatchUsersActiveNotFound() {
-        List<PatchActiveUserDto> dtos = List.of(
-                new PatchActiveUserDto("9999", true)
-        );
-
-        assertThrows(RuntimeException.class, () -> userService.patchUsersActive(dtos));
-    }
-
-    @Test
-    void testUpdateActiveAdminForbidden() {
-        User admin = new User(
-                "51",
-                "Admin",
-                "Root",
-                "admin@example.com",
-                "99999999A",
-                "Calle Admin 1",
-                "Madrid",
-                "Madrid",
-                "28001",
-                true,
-                true,
-                List.of(),
-                User.Roll.ADMIN
-        );
-        userRepository.save(admin);
-
-        assertThrows(RuntimeException.class, () -> userService.updateActive("51", false));
     }
 
     @Test
@@ -258,6 +239,28 @@ class UserServiceTest {
     }
 
     @Test
+    void testPatchUsersActive() {
+        List<PatchActiveUserDto> dtos = List.of(
+                new PatchActiveUserDto("2", false),
+                new PatchActiveUserDto("1", true)
+        );
+
+        userService.patchUsersActive(dtos);
+
+        assertFalse(userService.findById("2").isActive());
+        assertTrue(userService.findById("1").isActive());
+    }
+
+    @Test
+    void testPatchUsersActiveNotFound() {
+        List<PatchActiveUserDto> dtos = List.of(
+                new PatchActiveUserDto("9999", true)
+        );
+
+        assertThrows(RuntimeException.class, () -> userService.patchUsersActive(dtos));
+    }
+
+    @Test
     void testPatchUsersActiveAdminForbidden() {
         User admin = new User(
                 "52",
@@ -282,5 +285,4 @@ class UserServiceTest {
 
         assertThrows(RuntimeException.class, () -> userService.patchUsersActive(dtos));
     }
-
 }
