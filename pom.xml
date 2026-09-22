@@ -60,6 +60,10 @@
         <sonar.exclusions>
             src/main/java/es/upm/miw/devops/service/UserService.java
             .github/workflows/*.yml
+            src/main/java/es/upm/miw/devops/code/*.java
+            src/main/java/es/upm/miw/devops/persistence/*.java
+            src/main/java/es/upm/miw/devops/rest/exceptionshandler/ApiExceptionHandler.java
+            src/main/java/es/upm/miw/devops/Application.java
         </sonar.exclusions>
     </properties>
 

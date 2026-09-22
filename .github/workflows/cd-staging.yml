@@ -53,6 +53,8 @@ jobs:
             ${{ env.GHCR_URL }}/${{ env.REPOSITORY }}:latest
 
       - name: Deploy on Render
+        env:
+          RENDER_DEPLOY_HOOK_TOKEN: ${{ secrets.RENDER_DEPLOY_HOOK_TOKEN }}
         run: |
-          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_TOKEN }}" && echo "Deployed on Render!" || echo "Failed to deploy on Render!"
-          docker image prune --filter "until=12h" -f
+            curl -X POST "$RENDER_DEPLOY_HOOK_TOKEN" && echo "Deployed on Render!" || echo "Failed to deploy on Render!"
+            docker image prune --filter "until=12h" -f
