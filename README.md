@@ -116,7 +116,7 @@ Se crearán las siguientes 2 historias (**Feature**).
 * Uso del ingles. **Hasta -1 pto**.
 
 
-### :clap: Entraga de la práctica
+### :clap: Entrega de la práctica
 Indicar como texto en la subida la **URL de GitHub**
 > **NOTA. Acordarse de dar al botón de envío**
 
