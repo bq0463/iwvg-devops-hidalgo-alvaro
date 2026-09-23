@@ -121,6 +121,3 @@ Se crearán las siguientes 2 historias (**Feature**).
 ### :clap: Entrega de la práctica
 Indicar como texto en la subida la **URL de GitHub**
 > **NOTA. Acordarse de dar al botón de envío**
-
-Resumen de las ramas:
-![](docs/miw-iwvg-devops-demo.png)
