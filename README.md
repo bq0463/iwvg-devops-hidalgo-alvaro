@@ -13,7 +13,9 @@
 [![CI](https://github.com/bq0463/iwvg-devops-hidalgo-alvaro/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/bq0463/iwvg-devops-hidalgo-alvaro/actions/workflows/continuous-integration.yml)
 [![Slack](https://img.shields.io/badge/Slack-Join%20our%20workspace-4A154B?logo=slack&logoColor=white)](https://join.slack.com/t/bq0463/shared_invite/zt-48zy2svtx-eEBKx9T3sX4Cq7~azHgX8Q)
 [![Render Deploy](https://iwvg-devops-hidalgo-alvaro.onrender.com/version-badge)](https://iwvg-devops-hidalgo-alvaro.onrender.com/swagger-ui.html)
+[![AWS Deploy](http://51.94.194.249:10000/version-badge)](http://51.94.194.249:10000)
 [![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=bq0463_iwvg-devops-hidalgo-alvaro&metric=alert_status&token=21e7ac4a88d414f63da855429c661d262486efed)](https://sonarcloud.io/summary/new_code?id=bq0463_iwvg-devops-hidalgo-alvaro)
+
 ### Tecnologías necesarias
 `Java` `Maven` `GitHub` `GitHub Actions` `Sonarcloud` `Slack` `Spring-Boot` `GitHub Packages` `Docker` `OpenAPI`
 
@@ -119,6 +121,3 @@ Se crearán las siguientes 2 historias (**Feature**).
 ### :clap: Entrega de la práctica
 Indicar como texto en la subida la **URL de GitHub**
 > **NOTA. Acordarse de dar al botón de envío**
-
-Resumen de las ramas:
-![](docs/miw-iwvg-devops-demo.png)
